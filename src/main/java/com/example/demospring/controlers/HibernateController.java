@@ -9,6 +9,7 @@ http://192.168.0.126:8081/hibernate/countByName/Natalia Dąbrowska
 http://192.168.0.126:8081/hibernate/nameIncludeCharacters/ab*/
 
 import com.example.demospring.models.User;
+import com.example.demospring.repositories.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/hibernate")
 public class HibernateController {
+    UserService us;
+    public HibernateController(UserService us) {
+        this.us = us;
+    }
     @GetMapping("")
     public List<User> getUsers() {
-        return null;
+        return us.getUsers();
     }
 
     @GetMapping("/{id}")

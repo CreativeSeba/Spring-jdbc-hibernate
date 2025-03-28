@@ -46,9 +46,8 @@ public class JdbcController {
 
     @GetMapping("/last5")
     public List<User> last5() {
-        return null;
+        return jr.last5();
     }
-
     @GetMapping("/countByName/{name}")
     public int countByName(@PathVariable String name) {
         return jr.countByName(name);

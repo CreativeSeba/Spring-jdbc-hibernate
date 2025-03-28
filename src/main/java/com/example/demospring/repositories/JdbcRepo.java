@@ -4,10 +4,7 @@ import com.example.demospring.models.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -38,10 +35,10 @@ public class JdbcRepo {
     }
 
     public int countByName(String name){
-        return jt.query("SELECT COUNT(*) FROM users WHERE name = ?", Integer.class, name);
+        return jt.queryForObject("SELECT COUNT(*) FROM users WHERE name = ?", Integer.class, name);
     }
 
-    public ArrayList<User> getUsersByCharacters(String characters){
-        return jt.query("SELECT * FROM users WHERE name LIKE '%?%'", BeanPropertyRowMapper.newInstance(User.class), characters);
+    public List<User> getUsersByCharacters(String characters){
+        return jt.query("SELECT * FROM users WHERE name LIKE ?", BeanPropertyRowMapper.newInstance(User.class),"%"+ characters+"%");
     }
 }
